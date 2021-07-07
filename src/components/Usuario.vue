@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="p-4">
         <hr>
         <p>Nombre: <strong>{{ name }}</strong></p>    
         <p>Usuario: <strong>{{ username }}</strong></p>    
@@ -15,7 +15,3 @@
         email: String
     })
 </script>
-
-<style scoped>
-
-</style>

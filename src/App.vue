@@ -1,43 +1,35 @@
 <template>
-  <div class="">
+  <div>
     <TopBar />    
-    <!-- <Header /> -->
-    <User v-for="user in users" v-bind:key="user.id" :name="user.name" :username="user.username" :email="user.email"/>
-    <Login />
-    <!-- <Footer /> -->
+    <div class="space-x-2">
+      <router-link exact to="/">Login</router-link>
+      <router-link to="/users">Users</router-link>
+      <router-link to="/hello-world">Hello-world</router-link>
+    </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import Header from './components/Header.vue'
-  import Footer from './components/Footer.vue'
-  import User from './components/Usuario.vue'
-  import Login from './components/Login.vue'
   import TopBar from './components/TopBar.vue'
-
-  import axios from 'axios'
 
   export default {
     components: {
-      TopBar, Header, Footer, User, Login
+      TopBar
     },
 
     data() {
       return {
-        users: []
+
       }
     },
 
     methods: {
-      getUsers(){
-        axios.get('https://jsonplaceholder.typicode.com/users')
-        .then(res => this.users = res.data)
-        .catch(e => console.log(e))
-      },
+
     },
 
     mounted() {
-      this.getUsers()
+
     }   
   }
 </script>

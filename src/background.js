@@ -1,10 +1,10 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, IpcMain as ipc } from 'electron'
+import { app, protocol, BrowserWindow, ipcMain, screen } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
-const isDevelopment = process.env.NODE_ENV !== 'production'
 
+const isDevelopment = process.env.NODE_ENV !== 'production'
 
 
 // Scheme must be registered before the app is ready
@@ -13,16 +13,18 @@ protocol.registerSchemesAsPrivileged([
 ])
 
 async function createWindow() {
+  // get client width and height resolution
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    /* frame: false, */
+    width: width - width * 0.2,
+    height: height - height * 0.3,
+    frame: false,
     webPreferences: {
       
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
+      nodeIntegration: true,
       contextIsolation: false
     }
   })
@@ -37,8 +39,25 @@ async function createWindow() {
     win.loadURL('app://./index.html')
   }
 
-  ipc.on('closeApp', () => {
-    console.log('clicked on close')
+
+  // listeners for frameless window
+  //minimize
+  ipcMain.on('minimizeApp', () => {
+    win.minimize()
+  })
+
+  //maximize
+  ipcMain.on('maximizeApp', () => {
+    if(win.isMaximized()){
+      win.restore()
+    }else{
+      win.maximize()
+    }
+  })
+  
+  //close
+  ipcMain.on('closeApp', () => {
+    win.close()
   })
 }
 
