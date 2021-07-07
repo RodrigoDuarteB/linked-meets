@@ -2,11 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+.draggable {
+  -webkit-app-region: drag;
+}
+
+.not-draggable {
+  /* -webkit-user-drag: none; */
+  -webkit-user-select: none;
+}
+
 body {
-    background-color: #29303B;
-    color: #f5f5f5
+  background-color: #29303b;
+  color: #f5f5f5;
 }
 
 input {
-    color: #000
+  color: #000;
 }

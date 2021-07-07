@@ -1,7 +1,7 @@
 <template>
   <div class="">
-    <Header />
-    <h1>Hola</h1>
+    <TopBar />    
+    <!-- <Header /> -->
     <User v-for="user in users" v-bind:key="user.id" :name="user.name" :username="user.username" :email="user.email"/>
     <Login />
     <!-- <Footer /> -->
@@ -13,12 +13,13 @@
   import Footer from './components/Footer.vue'
   import User from './components/Usuario.vue'
   import Login from './components/Login.vue'
+  import TopBar from './components/TopBar.vue'
 
   import axios from 'axios'
 
   export default {
     components: {
-      Header, Footer, User, Login
+      TopBar, Header, Footer, User, Login
     },
 
     data() {
