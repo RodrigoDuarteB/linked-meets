@@ -1,5 +1,5 @@
 <template>
-    <div class="w-auto h-auto shadow-lg rounded-md border border-white p-4">
+    <div class="w-auto h-auto shadow-lg rounded-md border border-secondary p-4">
         <slot>
 
         </slot>

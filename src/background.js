@@ -59,6 +59,9 @@ async function createWindow() {
   ipcMain.on('closeApp', () => {
     win.close()
   })
+
+  /* app.userAgentFallback = app.userAgentFallback.replace('Electron/' 
++ process.versions.electron, '') */
 }
 
 // Quit when all windows are closed.
@@ -90,6 +93,7 @@ app.on('ready', async () => {
   }
   createWindow()
 })
+
 
 // Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
