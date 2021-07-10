@@ -7,7 +7,7 @@ import { auth } from '../firebase.config'
 
 const routes = [
     {path: '/', name: 'Home', component: Home},
-    {path: '/login', name: 'Login', component: Login},
+    {path: '/login', name: 'Login', component: Login, meta: {requiresNoAuth: true}},
     {path: '/hello-world', name: 'HelloWorld', component: HelloWorld},
     {path: '/users', name: 'Users', component: Users, meta: {requiresAuth: true}},
 ]
@@ -19,9 +19,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+    const requiresNoAuth = to.matched.some(record => record.meta.requiresNoAuth)
     const isAuth = auth.currentUser
     if(requiresAuth && !isAuth){
         next('/login')
+    }else if(requiresNoAuth && isAuth){
+        next('/')
     }else{
         next()
     }

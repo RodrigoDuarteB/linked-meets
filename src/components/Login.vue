@@ -54,6 +54,9 @@
                 if(e.code == "auth/weak-password" || this.password.length < 6){
                     this.errors = [...this.errors, {text: "La contraseña debe tener al menos 5 caracteres"}]
                 }
+                if(e.code == "auth/wrong-password"){
+                    this.errors = [...this.errors, {text: "La contraseña es incorrecta, no coincide"}]
+                }
             },
 
             resetErrors(){

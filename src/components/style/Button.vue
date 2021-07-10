@@ -1,5 +1,5 @@
 <template>
-    <button class="btn">{{ text }}</button>
+    <button class="btn transition duration-200">{{ text }}</button>
 </template>
 
 <script>

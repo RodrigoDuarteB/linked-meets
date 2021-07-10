@@ -1,26 +1,23 @@
 <template>
-    <div class="w-full h-12 flex justify-between bg-primary-light">
+    <div class="w-full h-12 flex justify-between bg-primary-light sticky top-0">
         <div class="flex-1 draggable w-full h-full flex items-center">
             <h1 class="p-4 text-2xl font-semibold">Linked Subjects</h1>
         </div>
         <div class="h-full flex items-center">
-            <button class="window-btn hover:bg-gray-400" @click="minimize" title="Minimizar">
-                <Fa icon="window-minimize" size="sm"/>
-            </button>
-            <button class="window-btn hover:bg-gray-400" @click="maximize" title="Maximizar">
-                <Fa icon="window-maximize" size="sm" v-if="!isMaximized"/>
-                <Fa icon="compress" size="sm" v-if="isMaximized"/>
-            </button>
-            <button class="window-btn hover:bg-gray-400" @click="close" title="Cerrar">
-                <Fa icon="times" size="sm"/>
-            </button>
+            <IconButton title="Minimizar" icon="window-minimize" size="sm" @click="minimize"/>
+            <IconButton title="Maximizar" :icon="isMaximized ? 'compress' : 'window-maximize'" size="sm" @click="maximize"/>
+            <IconButton title="Cerrar" icon="times" size="sm" @click="close"/>
         </div>
     </div>
 </template>
 
 <script>
+    import IconButton from './style/IconButton.vue'
     const { ipcRenderer } = window.require('electron')
     export default {
+        components: {
+            IconButton
+        },
         data(){
             return {
                 isMaximized: false

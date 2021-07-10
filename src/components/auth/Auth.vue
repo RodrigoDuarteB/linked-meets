@@ -1,13 +1,15 @@
 <template>
     <slot v-if="isReady"></slot>
-    <div v-else>
-        <h1>Cargando...</h1>
-    </div>
+    <Loading v-else/>
 </template>
 
 <script>
+    import Loading from '../style/Loading.vue'
     import { auth } from '../../../firebase.config'
     export default {
+        components: {
+            Loading
+        },
         data () {
             return {
                 isReady: false
