@@ -1,21 +1,30 @@
 <template>
-  <div>
     <TopBar />
     <Auth>
-      <button v-if="isLogged" class="btn bg-secondary-dark" @click="signOut">Logout</button>
-      <div class="relative min-h-screen flex">
+      <div class="grid">
         <!-- sidebar -->
-        <Sidebar class="absolute inset-y-0 left-0 transform transition duration-200 ease-in-out border-t border-secondary-dark">
+        <!-- <Sidebar class="absolute inset-y-0 left-0 transform transition duration-200 ease-in-out border-t border-secondary-dark">
           <NavLink text="Home" exact to="/"/>
           <NavLink text="Login" to="/login"/>
           <NavLink text="Users" to="/users"/>
           <NavLink text="HelloWorld" to="/hello-world"/>
-        </Sidebar>
+        </Sidebar> -->
+
+        <!-- Navbar -->
+        <Navbar>
+          <div class="flex justify-between">
+            <div>
+              <NavbarLink text="Home" exact to="/"/>
+              <NavbarLink v-if="!isLogged" text="Login" to="/login"/>
+              <NavbarLink v-if="isLogged" text="Subjects" to="/:id/subjects"/>
+            </div>
+            <button v-if="isLogged" class="btn bg-secondary-dark h-12"   @click="signOut">Logout</button>
+          </div>
+        </Navbar>
         <!-- content -->
         <router-view class="flex-1 p-4"></router-view>
       </div>    
     </Auth>
-  </div>
 </template>
 
 <script>
@@ -23,11 +32,13 @@
   import Auth from './components/auth/Auth.vue'
   import Sidebar from './components/Sidebar.vue'
   import NavLink from './components/style/NavLink.vue'
+  import Navbar from './components/Navbar.vue'
   import { auth } from '../firebase.config'
+  import NavbarLink from './components/NavbarLink.vue'
 
   export default {
     components: {
-      TopBar, Auth, Sidebar, NavLink
+      TopBar, Auth, Sidebar, NavLink, Navbar, NavbarLink
     },
 
     data() {
@@ -51,4 +62,3 @@
     }   
   }
 </script>
-
