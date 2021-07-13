@@ -2,27 +2,20 @@
     <TopBar />
     <Auth>
       <div class="grid">
-        <!-- sidebar -->
-        <!-- <Sidebar class="absolute inset-y-0 left-0 transform transition duration-200 ease-in-out border-t border-secondary-dark">
-          <NavLink text="Home" exact to="/"/>
-          <NavLink text="Login" to="/login"/>
-          <NavLink text="Users" to="/users"/>
-          <NavLink text="HelloWorld" to="/hello-world"/>
-        </Sidebar> -->
-
-        <!-- Navbar -->
+       <!-- Navbar -->
         <Navbar>
-          <div class="flex justify-between">
-            <div>
-              <NavbarLink text="Home" exact to="/"/>
-              <NavbarLink v-if="!isLogged" text="Login" to="/login"/>
-              <NavbarLink v-if="isLogged" text="Subjects" to="/:id/subjects"/>
-            </div>
-            <button v-if="isLogged" class="btn bg-secondary-dark h-12"   @click="signOut">Logout</button>
-          </div>
+          <template v-slot:default>
+            <NavbarLink text="Home" exact to="/"/>
+            <NavbarLink v-if="!isLogged" text="Login" to="/login"/>
+            <NavbarLink v-if="isLogged" text="Meets" :to="`/${user_id}/meets`"/>
+          </template>
+          <template v-slot:right v-if="isLogged">
+              <p>{{ user.displayName ? user.displayName : user.email }}</p>
+              <button class="btn bg-secondary-dark h-auto" @click="signOut">Logout</button>
+          </template>
         </Navbar>
         <!-- content -->
-        <router-view class="flex-1 p-4"></router-view>
+        <router-view class="p-4"></router-view>
       </div>    
     </Auth>
 </template>
@@ -30,20 +23,22 @@
 <script>
   import TopBar from './components/TopBar.vue'
   import Auth from './components/auth/Auth.vue'
-  import Sidebar from './components/Sidebar.vue'
-  import NavLink from './components/style/NavLink.vue'
   import Navbar from './components/Navbar.vue'
-  import { auth } from '../firebase.config'
   import NavbarLink from './components/NavbarLink.vue'
+
+  import { auth } from '../firebase.config'
+  import { logout } from './utils/notifications'
 
   export default {
     components: {
-      TopBar, Auth, Sidebar, NavLink, Navbar, NavbarLink
+      TopBar, Auth, Navbar, NavbarLink
     },
 
     data() {
       return {
-        isLogged: false
+        isLogged: false,
+        user: null,
+        user_id: ''
       }
     },
 
@@ -53,12 +48,44 @@
         .then(r => {
           console.log('unsigned!')
           this.$router.push('/login')
+          this.user = null
+          logout()
         })
         .catch(e => console.log(e))
       }
     },
+
     mounted() {
-      auth.onAuthStateChanged(user => user ? this.isLogged = true : this.isLogged = false)
-    }   
+      
+    },
+    beforeCreate() {
+      console.log("beforeCreate")
+    },
+    created() {
+      auth.onAuthStateChanged(user => {
+        if(user){
+          this.isLogged = true
+          this.user = user
+          this.user_id = user.uid
+        }else{
+          this.isLogged = false
+        }
+      })
+    },
+    beforeMount() {
+      console.log("beforeMount")
+    },
+    beforeUpdate() {
+      console.log("beforeUpdate")
+    },
+    updated() {
+      console.log("updated")
+    },
+    beforeDestroy() {
+      console.log("beforeDestroy")
+    },
+    destroyed() {
+      console.log("destroyed")
+    }
   }
 </script>

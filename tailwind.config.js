@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
@@ -12,6 +14,19 @@ module.exports = {
         'secondary-dark': '#c2c2c2'
       }
     },
+    colors: {
+      warmgray: colors.warmGray,
+      orange: colors.orange,
+      emerald: colors.emerald,
+      teal: colors.teal,
+      cyan: colors.cyan,
+      gray: colors.gray,
+      green: colors.green,
+      transparent: 'transparent',
+      current: 'currentColor',
+      white: colors.white,
+      red: colors.red
+    }
   },
   variants: {
     extend: {},

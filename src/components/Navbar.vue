@@ -1,6 +1,11 @@
 <template>
-    <div class="w-full bg-primary-dark">
-        <slot></slot>
+    <div class="flex justify-between bg-primary-dark">
+        <div>
+            <slot></slot>
+        </div>
+        <div class="flex justify-between space-x-2 items-center">
+            <slot name="right"></slot>
+        </div>
     </div>
 </template>
 

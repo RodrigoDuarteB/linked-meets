@@ -15,7 +15,7 @@
                 isReady: false
             }
         },
-        mounted() {
+        created() {
             auth.onAuthStateChanged(user => this.isReady = true)
         }
     }

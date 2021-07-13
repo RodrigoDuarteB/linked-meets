@@ -25,6 +25,7 @@
 
     import { auth } from './../../firebase.config'
     import firebase from 'firebase/app'
+    import { login } from '../utils/notifications'
 
     export default {
         components: {
@@ -79,6 +80,7 @@
                 auth.signInWithEmailAndPassword(this.email, this.password)
                 .then(r => {
                     console.log('logged')
+                    login()
                     this.$router.push('/')
                 })
                 .catch(e => {

@@ -1,7 +1,7 @@
 <template>
     <div class="w-full h-12 flex justify-between bg-primary-light sticky top-0">
         <div class="flex-1 draggable w-full h-full flex items-center">
-            <h1 class="p-4 text-2xl font-semibold">Linked Subjects</h1>
+            <h1 class="p-4 text-2xl font-semibold">Linked Meets</h1>
         </div>
         <div class="h-full flex items-center">
             <IconButton title="Minimizar" icon="window-minimize" size="sm" @click="minimize"/>

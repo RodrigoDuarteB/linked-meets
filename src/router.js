@@ -1,17 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from './components/Login'
-import HelloWorld from './components/HelloWorld'
-import Users from './components/Users'
 import Home from './components/Home'
-import Subjects from './components/subjects/Subjects'
+import Meets from './components/meets/Meets'
 import { auth } from '../firebase.config'
 
 const routes = [
     {path: '/', name: 'Home', component: Home},
     {path: '/login', name: 'Login', component: Login, meta: {requiresNoAuth: true}},
-    {path: '/hello-world', name: 'HelloWorld', component: HelloWorld},
-    {path: '/users', name: 'Users', component: Users, meta: {requiresAuth: true}},
-    {path: '/:id/subjects', name: 'Subjects', component: Subjects, meta: {requiresAuth: true}},
+    {path: '/:id/meets', name: 'Meets', component: Meets, meta: {requiresAuth: true}},
 ]
 
 const router = createRouter({
