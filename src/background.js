@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, ipcMain, screen } from 'electron'
+import { app, protocol, BrowserWindow, ipcMain, screen, shell } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 
@@ -39,7 +39,6 @@ async function createWindow() {
     win.loadURL('app://./index.html')
   }
 
-
   // listeners for frameless window
   //minimize
   ipcMain.on('minimizeApp', () => {
@@ -62,7 +61,15 @@ async function createWindow() {
 
   /* app.userAgentFallback = app.userAgentFallback.replace('Electron/' 
 + process.versions.electron, '') */
+  win.webContents.on('new-window', (e, url) => {
+    e.preventDefault()
+    if(!url.includes('https://')){
+      url = 'https://' + url
+    }
+    shell.openExternal(url)
+  })
 }
+
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {

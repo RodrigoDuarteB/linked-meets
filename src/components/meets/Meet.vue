@@ -3,12 +3,18 @@
         <li>Nombre: {{ data.title }}</li>
         <li>Descripcion: {{ data.description }}</li>
         <li>Plataforma: {{ data.platform }}</li>
-        <li>Enlace: {{ data.link }}</li>
+        <a :href="data.link" target="_blank" @click="minimize">Enlace: {{ data.link }}</a>
     </ul>
 </template>
 
 <script>
+    import { minimize } from '../../utils/window'
     export default {
-        props: ['data']
+        props: ['data'],
+        methods: {
+            minimize() {
+                minimize()
+            }
+        }
     }
 </script>

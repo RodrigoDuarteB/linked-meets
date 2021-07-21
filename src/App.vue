@@ -11,7 +11,7 @@
           </template>
           <template v-slot:right v-if="isLogged">
               <p>{{ user.displayName ? user.displayName : user.email }}</p>
-              <button class="btn bg-secondary-dark h-auto" @click="signOut">Logout</button>
+              <button class="btn bg-secondary-dark text-primary" @click="signOut">Logout</button>
           </template>
         </Navbar>
         <!-- content -->
